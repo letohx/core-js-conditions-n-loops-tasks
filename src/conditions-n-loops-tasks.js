@@ -21,9 +21,7 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
-}
+const isPositive = (number) => number >= 0;
 
 /**
  * Returns the maximum of three numbers without using Array and Math classes methods.
@@ -38,8 +36,11 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let result = a >= b ? a : b;
+  result = c >= result ? c : result;
+
+  return result;
 }
 
 /**
@@ -61,6 +62,9 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
 function canQueenCaptureKing(/* queen, king */) {
+  // if (queen.x === king.x) return true;
+  // if (queen.y === king.y) return true;
+  // return false;
   throw new Error('Not implemented');
 }
 
@@ -82,8 +86,11 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a + b <= c || b + c <= a || a + c <= b) {
+    return false;
+  }
+  return a === b || b === c || c === a;
 }
 
 /**
@@ -120,6 +127,50 @@ function convertToRomanNumerals(/* num */) {
  *  '1950.2'  => 'one nine five zero point two'
  */
 function convertNumberToString(/* numberStr */) {
+  // const arr = numberStr.split('');
+  // const result = [];
+
+  // for (const char of arr) {
+  //   switch (char) {
+  //     case '0':
+  //       result.push('zero');
+  //       break;
+  //     case '1':
+  //       result.push('one');
+  //       break;
+  //     case '2':
+  //       result.push('two');
+  //       break;
+  //     case '3':
+  //       result.push('three');
+  //       break;
+  //     case '4':
+  //       result.push('four');
+  //       break;
+  //     case '5':
+  //       result.push('five');
+  //       break;
+  //     case '6':
+  //       result.push('six');
+  //       break;
+  //     case '7':
+  //       result.push('seven');
+  //       break;
+  //     case '8':
+  //       result.push('eight');
+  //       break;
+  //     case '9':
+  //       result.push('nine');
+  //       break;
+  //     case '-':
+  //       result.push('minus');
+  //       break;
+  //     default:
+  //       result.push('point');
+  //   }
+  // }
+
+  // return result.join(' ');
   throw new Error('Not implemented');
 }
 
@@ -135,8 +186,13 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  for (let i = 0; i < str.length / 2; i += 1) {
+    if (str[i] !== str[str.length - i - 1]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -153,8 +209,11 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) return i;
+  }
+  return -1;
 }
 
 /**
@@ -172,8 +231,13 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const numStr = `${num}`;
+  const digitStr = `${digit}`;
+  for (let i = 0; i < numStr.length; i += 1) {
+    if (numStr[i] === digitStr) return true;
+  }
+  return false;
 }
 
 /**
@@ -233,8 +297,24 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const matrixCopy = matrix;
+
+  for (let row = 0; row < matrix.length / 2; row += 1) {
+    const reversedRow = matrix.length - 1 - row;
+
+    for (let col = row; col < reversedRow; col += 1) {
+      const reversedCol = matrix.length - 1 - col;
+      const canning = matrixCopy[row][col];
+
+      matrixCopy[row][col] = matrixCopy[reversedCol][row];
+      matrixCopy[reversedCol][row] = matrixCopy[reversedRow][reversedCol];
+      matrixCopy[reversedRow][reversedCol] = matrixCopy[col][reversedRow];
+      matrixCopy[col][reversedRow] = canning;
+    }
+  }
+
+  return matrixCopy;
 }
 
 /**
