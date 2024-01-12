@@ -407,20 +407,33 @@ function rotateMatrix(matrix) {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(arr) {
-  const arr2 = arr;
-  let x = 'RS School is awesome';
+  const resultArr = arr;
 
-  for (let i = 0; i < arr2.length; i += 1) {
-    for (let j = i; j < arr2.length; j += 1) {
-      if (i < j && arr2[i] > arr2[j]) {
-        x = arr2[j];
-        arr2[j] = arr2[i];
-        arr2[i] = x;
+  function divide(start, end) {
+    let index = start;
+    for (let i = start; i < end; i += 1) {
+      if (arr[end] > resultArr[i]) {
+        const x = resultArr[index];
+        resultArr[index] = resultArr[i];
+        resultArr[i] = x;
+        index += 1;
       }
     }
+    const x = resultArr[index];
+    resultArr[index] = resultArr[end];
+    resultArr[end] = x;
+
+    return index;
   }
 
-  return arr2;
+  (function quickSort(start = 0, end = arr.length - 1) {
+    if (end <= start) return;
+    const index = divide(start, end);
+    quickSort(start, index - 1);
+    quickSort(index + 1, end);
+  })();
+
+  return resultArr;
 }
 
 /**
